@@ -1,9 +1,3 @@
-Berikut **README.md** yang profesional, rapi, dan cocok untuk GitHub repo `news-dashboard`.
-Sudah mencakup: deskripsi, fitur, arsitektur, instalasi, konfigurasi, screenshots (placeholder), dan instruksi deploy.
-
-Kamu tinggal **copy-paste langsung** ke repo GitHub.
-
----
 
 # 📰 **News Dashboard — Django Admin & News Management System**
 
