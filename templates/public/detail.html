@@ -1,0 +1,34 @@
+{% extends "public/base_public.html" %}
+{% block title %}{{ item.title }}{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-8">
+        <h2 class="fw-bold">{{ item.title }}</h2>
+        <span class="badge bg-primary">{{ item.category.name }}</span>
+        <p class="text-muted">Dipublikasikan pada {{ item.published_at|date:"d M Y" }}</p>
+
+        <img src="{{ item.thumbnail.url }}" class="img-fluid rounded mb-3">
+
+        <div class="content">
+            {{ item.content|safe }}
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <h5 class="fw-bold mt-4">Kategori</h5>
+        <ul class="list-group">
+            {% for cat in categories %}
+            <li class="list-group-item">
+                <a href="{% url 'public.news.category' cat.slug %}">
+                    {{ cat.name }}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</div>
+
+{% endblock %}

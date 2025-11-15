@@ -4,15 +4,20 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+
+    # ===== PUBLIC LANDING PAGE =====
+    path('', include('apps.news.public_urls')),    # halaman publik default
+
+    # ===== CUSTOM DASHBOARD ADMIN =====
+    path('dashboard/', include('apps.dashboard.urls')),  # dashboard admin
+    path('dashboard/news/', include('apps.news.urls')),  # CRUD news/category
+    path('dashboard/users/', include('apps.users.urls')), # CRUD user
+
+    # ===== AUTH SYSTEM =====
+    path('auth/', include('apps.users.auth_urls')),   # login/logout
+
+    # ===== DJANGO ADMIN =====
     path('admin/', admin.site.urls),
-
-    # app routes
-    path('', include('apps.dashboard.urls')),
-    path('news/', include('apps.news.urls')),
-    
-
-    path('auth/', include('apps.users.auth_urls')),   # khusus login/logout
-    path('users/', include('apps.users.urls')),
 ]
 
 if settings.DEBUG:

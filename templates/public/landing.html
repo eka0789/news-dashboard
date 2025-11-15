@@ -1,0 +1,37 @@
+{% extends "public/base_public.html" %}
+{% block title %}Portal Berita{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+{% if hero %}
+<div class="hero-section mb-4" style="background-image: url('{{ hero.thumbnail.url }}');">
+    <div class="hero-overlay text-white">
+        <h2 class="fw-bold">{{ hero.title }}</h2>
+        <p>{{ hero.content|safe|truncatewords:20 }}</p>
+        <a href="{% url 'public.news.detail' hero.slug %}" class="btn btn-primary btn-sm">Baca Selengkapnya</a>
+    </div>
+</div>
+{% endif %}
+
+<!-- News List -->
+<h3 class="fw-bold mb-3">Berita Terbaru</h3>
+<div class="row">
+
+    {% for item in latest_news %}
+    <div class="col-md-4 mb-4">
+        <div class="card news-card shadow-sm">
+            <img src="{{ item.thumbnail.url }}" class="card-img-top" alt="">
+            <div class="card-body">
+                <small class="badge bg-primary">{{ item.category.name }}</small>
+                <h5 class="mt-2">{{ item.title }}</h5>
+                <p>{{ item.content|safe|truncatewords:15 }}</p>
+                <a href="{% url 'public.news.detail' item.slug %}" class="btn btn-outline-primary btn-sm">Selengkapnya</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

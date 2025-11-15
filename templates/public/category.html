@@ -1,0 +1,27 @@
+{% extends "public/base_public.html" %}
+{% block title %}Kategori {{ category.name }}{% endblock %}
+
+{% block content %}
+
+<h3 class="fw-bold mb-3">Kategori: {{ category.name }}</h3>
+
+<div class="row">
+
+{% for item in news %}
+    <div class="col-md-4 mb-4">
+        <div class="card news-card shadow-sm">
+            <img src="{{ item.thumbnail.url }}" class="card-img-top">
+            <div class="card-body">
+                <h5>{{ item.title }}</h5>
+                <p>{{ item.content|safe|truncatewords:15 }}</p>
+                <a href="{% url 'public.news.detail' item.slug %}" class="btn btn-primary btn-sm">Selengkapnya</a>
+            </div>
+        </div>
+    </div>
+{% empty %}
+    <p>Belum ada berita pada kategori ini.</p>
+{% endfor %}
+
+</div>
+
+{% endblock %}
