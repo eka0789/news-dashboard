@@ -4,10 +4,12 @@
 {% block content %}
 
 <div class="row">
+
+  <!-- Total Berita -->
   <div class="col-lg-3 col-6">
     <div class="small-box bg-info">
       <div class="inner">
-        <h3>150</h3>
+        <h3>{{ total_news }}</h3>
         <p>Total Berita</p>
       </div>
       <div class="icon">
@@ -16,10 +18,11 @@
     </div>
   </div>
 
+  <!-- User Terdaftar -->
   <div class="col-lg-3 col-6">
     <div class="small-box bg-warning">
       <div class="inner">
-        <h3>35</h3>
+        <h3>{{ total_users }}</h3>
         <p>User Terdaftar</p>
       </div>
       <div class="icon">
@@ -27,6 +30,169 @@
       </div>
     </div>
   </div>
+
+  <!-- Published -->
+  <div class="col-lg-3 col-6">
+    <div class="small-box bg-success">
+      <div class="inner">
+        <h3>{{ news_published }}</h3>
+        <p>Berita Published</p>
+      </div>
+      <div class="icon">
+        <i class="fas fa-check"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Draft -->
+  <div class="col-lg-3 col-6">
+    <div class="small-box bg-secondary">
+      <div class="inner">
+        <h3>{{ news_draft }}</h3>
+        <p>Berita Draft</p>
+      </div>
+      <div class="icon">
+        <i class="fas fa-edit"></i>
+      </div>
+    </div>
+  </div>
+
 </div>
+
+
+<!-- Chart & Tables -->
+<div class="row">
+
+  <!-- Line Chart -->
+  <div class="col-md-8">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">Statistik Berita 7 Hari Terakhir</h3>
+      </div>
+      <div class="card-body">
+        <canvas id="newsChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Donut Chart -->
+  <div class="col-md-4">
+    <div class="card card-danger">
+      <div class="card-header">
+        <h3 class="card-title">Status Berita</h3>
+      </div>
+      <div class="card-body">
+        <canvas id="statusChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- Tables -->
+<div class="row mt-4">
+
+  <!-- Berita Terbaru -->
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header bg-info">
+        <h3 class="card-title">Berita Terbaru</h3>
+      </div>
+      <div class="card-body p-0">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Judul</th>
+              <th>Status</th>
+              <th>Tanggal</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in latest_news %}
+            <tr>
+              <td>{{ item.title }}</td>
+              <td>{{ item.status }}</td>
+              <td>{{ item.created_at|date:"d-m-Y" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="3" class="text-center">Belum ada berita</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- User Terbaru -->
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header bg-warning">
+        <h3 class="card-title">User Terbaru</h3>
+      </div>
+      <div class="card-body p-0">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Join</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in latest_users %}
+            <tr>
+              <td>{{ user.username }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.date_joined|date:"d-m-Y" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="3" class="text-center">Belum ada user</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- Chart JS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  // Line chart
+  const ctx = document.getElementById('newsChart');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: {{ chart_labels|safe }},
+      datasets: [{
+        label: 'Berita Dibuat',
+        data: {{ chart_values|safe }},
+        borderColor: 'blue',
+        fill: false,
+      }]
+    }
+  });
+
+  // Donut chart
+  const statusCtx = document.getElementById('statusChart');
+  new Chart(statusCtx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Published', 'Draft'],
+      datasets: [{
+        data: [{{ news_published }}, {{ news_draft }}],
+        backgroundColor: ['green', 'gray']
+      }]
+    }
+  });
+</script>
 
 {% endblock %}
