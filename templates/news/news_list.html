@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}Daftar Berita{% endblock %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-header d-flex justify-content-between">
+        <h3 class="card-title">Daftar Berita</h3>
+        <a href="{% url 'news.create' %}" class="btn btn-primary">+ Tambah Berita</a>
+    </div>
+
+    <div class="card-body">
+
+        {% if messages %}
+            {% for msg in messages %}
+                <div class="alert alert-{{ msg.tags }}">{{ msg }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <table class="table table-bordered table-striped datatable">
+            <thead>
+                <tr>
+                    <th width="5%">#</th>
+                    <th>Judul</th>
+                    <th>Kategori</th>
+                    <th>Status</th>
+                    <th>Penulis</th>
+                    <th>Thumbnail</th>
+                    <th width="15%" class="no-sort">Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for item in news %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.category.name }}</td>
+                    <td>
+                        {% if item.status == "published" %}
+                            <span class="badge badge-success">Published</span>
+                        {% else %}
+                            <span class="badge badge-secondary">Draft</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ item.author }}</td>
+                    <td>
+                        <img src="{{ item.thumbnail.url }}" width="80">
+                    </td>
+                    <td>
+                        <a href="{% url 'news.edit' item.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'news.delete' item.id %}"
+                           onclick="return confirm('Hapus berita?')"
+                           class="btn btn-danger btn-sm">Hapus</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center">Belum ada berita.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+{% endblock %}

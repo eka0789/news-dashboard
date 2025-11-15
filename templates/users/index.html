@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Manajemen Pengguna{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h3 class="fw-bold" style="margin: 0;">Manajemen User</h3>
+    </div>
+
+    <div class="card-body">
+
+        <!-- Top Bar -->
+        <div style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        ">
+            <h5 style="margin: 0;">Daftar User</h5>
+            <a href="#" class="btn btn-primary">+ Tambah User</a>
+        </div>
+
+        <!-- Table -->
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th width="5%">#</th>
+                        <th>Nama</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+                        <th width="15%">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {% if users %}
+                        {% for user in users %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ user.first_name }} {{ user.last_name }}</td>
+                            <td>{{ user.email }}</td>
+
+                            <td>
+                                {% if user.is_superuser %}
+                                    <span class="badge text-bg-danger">Admin</span>
+                                {% elif user.is_staff %}
+                                    <span class="badge text-bg-warning">Editor</span>
+                                {% else %}
+                                    <span class="badge text-bg-secondary">User</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {% if user.is_active %}
+                                    <span class="badge text-bg-success">Aktif</span>
+                                {% else %}
+                                    <span class="badge text-bg-secondary">Nonaktif</span>
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                <a href="#" class="btn btn-sm btn-warning">Edit</a>
+                                <a href="#" class="btn btn-sm btn-danger">Hapus</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    {% else %}
+                        <tr>
+                            <td colspan="6" class="text-center text-muted">
+                                Belum ada data user.
+                            </td>
+                        </tr>
+                    {% endif %}
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

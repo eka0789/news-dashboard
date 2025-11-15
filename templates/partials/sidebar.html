@@ -1,0 +1,54 @@
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+
+  <!-- Brand Logo -->
+  <a href="{% url 'dashboard.index' %}" class="brand-link">
+    <i class="fas fa-newspaper ml-3 mr-2"></i>
+    <span class="brand-text font-weight-light">News Dashboard</span>
+  </a>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+
+        <!-- Dashboard -->
+        <li class="nav-item">
+          <a href="{% url 'dashboard.index' %}" class="nav-link {% if request.resolver_match.url_name == 'dashboard.index' %}active{% endif %}">
+            <i class="nav-icon fas fa-tachometer-alt"></i>
+            <p>Dashboard</p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+  <a href="{% url 'category.index' %}" 
+     class="nav-link {% if request.resolver_match.url_name in 'category.index category.create category.edit' %}active{% endif %}">
+    <i class="nav-icon fas fa-list-alt"></i>
+    <p>Kategori</p>
+  </a>
+</li>
+
+        <!-- News -->
+        <li class="nav-item">
+          <a href="{% url 'news.index' %}" class="nav-link 
+            {% if request.resolver_match.url_name in 'news.index news.create news.edit' %}active{% endif %}">
+            <i class="nav-icon fas fa-newspaper"></i>
+            <p>Berita</p>
+          </a>
+        </li>
+
+        <!-- Users -->
+        <li class="nav-item">
+          <a href="{% url 'users.index' %}" class="nav-link {% if request.resolver_match.url_name == 'users.index' %}active{% endif %}">
+            <i class="nav-icon fas fa-users"></i>
+            <p>Users</p>
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+
+  </div>
+  <!-- /.sidebar -->
+
+</aside>

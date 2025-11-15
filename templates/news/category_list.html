@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Kategori Berita{% endblock %}
+
+{% block content %}
+
+<div class="card">
+    <div class="card-header d-flex justify-content-between">
+        <h3 class="card-title">Daftar Kategori</h3>
+        <a href="{% url 'category.create' %}" class="btn btn-primary">+ Tambah Kategori</a>
+    </div>
+
+    <div class="card-body">
+
+        {% if messages %}
+            {% for msg in messages %}
+                <div class="alert alert-{{ msg.tags }}">{{ msg }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <table class="table table-bordered table-striped datatable">
+            <thead>
+                <tr>
+                    <th width="5%">#</th>
+                    <th>Nama Kategori</th>
+                    <th>Slug</th>
+                    <th width="20%" class="no-sort">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cat in categories %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ cat.name }}</td>
+                    <td>{{ cat.slug }}</td>
+                    <td>
+                        <a href="{% url 'category.edit' cat.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'category.delete' cat.id %}" 
+                           onclick="return confirm('Hapus kategori?')" 
+                           class="btn btn-danger btn-sm">Hapus</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4" class="text-center text-muted">Belum ada kategori.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
