@@ -1,0 +1,19 @@
+# Django Core
+Django==5.0.3
+
+# Database PostgreSQL (optional, recommended)
+psycopg2-binary==2.9.9
+
+# Django Extensions (opsional untuk dev)
+django-extensions==3.2.3
+
+# Environment variable loader (jika nanti pakai .env)
+python-dotenv==1.0.1
+
+# Messages, forms, csrf dll sudah built-in Django
+
+# For Production WSGI Servers (optional)
+gunicorn==21.2.0
+
+# Windows-only file watcher fix (optional)
+watchdog==4.0.0
