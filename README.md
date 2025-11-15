@@ -154,13 +154,13 @@ python manage.py createsuperuser
 
 ## 📝 **To-Do (Roadmap Pengembangan)**
 
-* [ ] CRUD Berita lengkap
-* [ ] Upload thumbnail berita
-* [ ] Pagination & Searching
-* [ ] Role-based authorization (Admin, Editor)
-* [ ] API RESTful menggunakan Django REST Framework
-* [ ] Integrasi Tailwind atau AdminLTE
-* [ ] Unit Testing (pytest)
+* [X] CRUD Berita lengkap
+* [X] Upload thumbnail berita
+* [X] Pagination & Searching
+* [X] Role-based authorization (Admin, Editor)
+* [X] API RESTful menggunakan Django REST Framework
+* [X] Integrasi Tailwind atau AdminLTE
+* [X] Unit Testing (pytest)
 
 ---
 

@@ -38,12 +38,14 @@
         </li>
 
         <!-- Users -->
-        <li class="nav-item">
-          <a href="{% url 'users.index' %}" class="nav-link {% if request.resolver_match.url_name == 'users.index' %}active{% endif %}">
-            <i class="nav-icon fas fa-users"></i>
-            <p>Users</p>
-          </a>
-        </li>
+        {% if request.user.is_superuser %}
+<li class="nav-item">
+  <a href="{% url 'users.index' %}" class="nav-link {% if request.resolver_match.url_name in 'users.index users.create users.edit' %}active{% endif %}">
+    <i class="nav-icon fas fa-users"></i>
+    <p>Users</p>
+  </a>
+</li>
+{% endif %}
 
       </ul>
     </nav>
